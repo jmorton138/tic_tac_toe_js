@@ -56,6 +56,10 @@ function switchTurns(player, opp) {
     return { player, opp } 
 }
 
+function validateTurn(event) {
+    
+}
+
 function newGame() {
     const displayBoard = document.querySelector('.gameboard');
     displayBoard.innerHTML = '';
@@ -88,7 +92,6 @@ function gameLoop() {
                 return;
             }
             playerTurn(player.num).startTurn();
-            gameOver = true;
             
         })
     });
