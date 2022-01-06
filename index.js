@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const Gameboard = (() => {
     var spaces = []
     for(let i = 1; i < 10; i++) {
-        spaces.push(i);
+        spaces.push('__');
     }
     return { spaces }
 })();
@@ -56,8 +56,12 @@ function switchTurns(player, opp) {
     return { player, opp } 
 }
 
-function validateTurn(event) {
-    
+function validateTurn(event, player) {
+    if (event.target.innerHTML === '__') {
+        player.markSpace(event);
+    } else {
+        return false
+    }
 }
 
 function newGame() {
@@ -80,7 +84,9 @@ function gameLoop() {
     playerTurn(player.num).startTurn();
     document.querySelectorAll('.space').forEach(space => {
         space.addEventListener('click', event => {
-            player.markSpace(event);
+            if (validateTurn(event, player) === false) {
+                return
+            }
             playerTurn(player.num).endTurn;
             //switch turns
             var temp = player;
