@@ -1,17 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-    newGame();
+    Gameboard.newGame();
+    Gameboard.updateGameboard();
     gameLoop();
 
 
 })
 
 const Gameboard = (() => {
+
     var spaces = []
-    for(let i = 1; i < 10; i++) {
-        spaces.push('');
+
+    const newGame = () => {
+        const displayBoard = document.querySelector('.gameboard');
+        displayBoard.innerHTML = '';
+
+        for(let i = 1; i < 10; i++) {
+            spaces.push('');
+        }
+        let j = 1;
+
+        spaces.forEach(space => {
+            var element = document.createElement("DIV");
+            element.innerHTML = space;
+            element.className ="space";
+            element.id = j;
+            displayBoard.appendChild(element);
+    
+            j++;
+        });
     }
-    return { spaces }
+
+    const updateGameboard = () => {
+        console.log(spaces);
+
+    }
+
+    return {newGame, updateGameboard, spaces}
 })();
+
 
 const Player = (num) => {
     var marker = 'X';
@@ -64,24 +90,24 @@ function validateTurn(event, player) {
     }
 }
 
-function newGame() {
-    let i = 1;
-    const displayBoard = document.querySelector('.gameboard');
-    displayBoard.innerHTML = '';
-    Gameboard.spaces.forEach(space => {
-        var element = document.createElement("DIV");
-        element.innerHTML = space;
-        element.className ="space";
-        element.id = i;
-        displayBoard.appendChild(element);
 
-        i++;
-    });
-}
 
-function gameOverCheck() {
-    return
-}
+
+
+// function gameOverCheck() {
+//     if () {
+//         return true;
+//     }
+//     return false
+// }
+
+// function catsGameCheck() {
+//     //if no spaces are ''
+//     board = document.querySelector('.gameboard')
+//     board.forEach(space => {
+//         console.log(space.id)
+//     })
+// }
 
 function gameLoop() {
     var gameOver = false;
@@ -95,6 +121,7 @@ function gameLoop() {
                 return
             }
             playerTurn(player.num).endTurn;
+            console.log(Gameboard.spaces)
             //switch turns
             var temp = player;
             player = opp;
