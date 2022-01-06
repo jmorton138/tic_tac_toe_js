@@ -90,31 +90,62 @@ function validateTurn(event, player) {
 }
 
 
+const gameOver = (() => {
 
+    function check(marker) {
+        if (horizontalGameOver(marker) === true) {
+            return true;
+        } else {
+            return false
 
-
-// function gameOverCheck() {
-//     if () {
-//         return true;
-//     }
-//     return false
-// }
-
-function catsGameCheck() {
-    //if no spaces are '' it's a cat's game
-    let i = 0;
-    Gameboard.spaces.forEach(space => {
-        if (space === '') {
-            i++;
         }
-    });
-    if (i === 0) {
-        console.log('catsgame');
     }
-}
+
+    const horizontalGameOver = marker => {
+        let i = 0;
+        let j = 1;
+        Gameboard.spaces.forEach(space => {
+            if (space === marker) {
+                i++;
+                if (i === 3 && j % 3 === 0) {
+                    console.log('horiz win')
+                    return true;
+                }
+            } else {
+                i = 0;
+            }
+            j++;
+        });
+
+    }
+
+    const verticalGameOver = marker => {
+        let i = 0;
+    }
+
+    function catsGameCheck() {
+        //if no spaces are '' it's a cat's game
+        let i = 0;
+        Gameboard.spaces.forEach(space => {
+            if (space === '') {
+                i++;
+            }
+        });
+        if (i === 0) {
+            console.log('catsgame');
+        }
+    }
+    return {check}
+})();
+
+
+
+
+
+
+
 
 function gameLoop() {
-    var gameOver = false;
     var player = setPlayer(1);
     var opp = setPlayer(2);
 
@@ -126,7 +157,7 @@ function gameLoop() {
             }
             Gameboard.updateGameboard(player.marker, event.target.id)
             playerTurn(player.num).endTurn;
-            catsGameCheck();
+            gameOver.check(player.marker)
             //switch turns
             var temp = player;
             player = opp;
