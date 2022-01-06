@@ -95,6 +95,8 @@ const gameOver = (() => {
     function check(marker) {
         if (horizontalGameOver(marker) === true) {
             return true;
+        } else if (verticalGameOver(marker) == true) {
+            return true;
         } else {
             return false
 
@@ -120,7 +122,25 @@ const gameOver = (() => {
     }
 
     const verticalGameOver = marker => {
-        let i = 0;
+        let counter = 0
+        const array = Gameboard.spaces
+        for (let i = 0; i < array.length - 1; i++) {
+            for (let j = i; j < array.length - 1; j += 3) {
+                if (array[j] == marker && array[j+3] == marker) {
+                    counter ++;
+                    
+                    if (counter === 2) {
+                        console.log('vert')
+                        return true;
+                    }
+                } else {
+                    counter = 0;
+                    break
+                }
+            }
+        }
+        
+
     }
 
     function catsGameCheck() {
