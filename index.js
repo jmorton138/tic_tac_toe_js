@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const displayBoard = document.querySelector('.gameboard');
-    Gameboard.spaces.forEach(space => {
-        var element = document.createElement("DIV");
-        element.innerHTML = space;
-        element.className ="space";
-        element.onclick = 
-        displayBoard.appendChild(element);
-    });
+    newGame();
     gameLoop();
 
 
@@ -63,11 +56,23 @@ function switchTurns(player, opp) {
     return { player, opp } 
 }
 
+function newGame() {
+    const displayBoard = document.querySelector('.gameboard');
+    displayBoard.innerHTML = '';
+    Gameboard.spaces.forEach(space => {
+        var element = document.createElement("DIV");
+        element.innerHTML = space;
+        element.className ="space";
+        element.onclick = 
+        displayBoard.appendChild(element);
+    });
+}
+
 function gameLoop() {
     var gameOver = false;
     var player = setPlayer(1);
     var opp = setPlayer(2);
-    
+
     playerTurn(player.num).startTurn();
     document.querySelectorAll('.space').forEach(space => {
         space.addEventListener('click', event => {
