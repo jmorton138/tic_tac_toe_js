@@ -100,6 +100,9 @@ const gameOver = (() => {
         } else if (diagonalDownGameOver(marker) == true) {
             return true;
 
+        } else if (diagonalUpGameOver(marker) == true) {
+            return true;
+
         } else {
             return false
 
@@ -156,6 +159,27 @@ const gameOver = (() => {
                     
                     if (counter === 2) {
                         console.log('diag down')
+                        return true;
+                    }
+                } else {
+                    counter = 0;
+                    break
+                }
+            }
+        }    
+
+    }
+
+    const diagonalUpGameOver = marker => {
+        let counter = 0
+        const array = Gameboard.spaces
+        for (let i = 0; i < array.length - 1; i++) {
+            for (let j = i; j < array.length - 1; j += 2) {
+                if (array[j] == marker && array[j+2] == marker) {
+                    counter ++;
+                    
+                    if (counter === 2) {
+                        console.log('diag up')
                         return true;
                     }
                 } else {
