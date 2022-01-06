@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var element = document.createElement("DIV");
         element.innerHTML = space;
         element.className ="space";
+        element.onclick = 
         displayBoard.appendChild(element);
     });
     gameLoop();
@@ -20,23 +21,18 @@ const Gameboard = (() => {
 })();
 
 const Player = (num) => {
-    const marker = 'X';
+    var marker = 'X';
     if (num === 2) {
-        const marker = 'O';      
+        marker = 'O';      
     }
-    //
-    
     const markSpace = (event) => {
         event.target.innerHTML = marker;
     }
-
-
     return { num, marker, markSpace }
 }
 
 const playerTurn = (number) => {
     const {num} = Player(number);
-
     const startTurn = () => {
         document.querySelector('.player-turn').innerHTML = `Player ${num}'s turn`;
         var turnOver = false;
@@ -46,18 +42,12 @@ const playerTurn = (number) => {
 
     const endTurn = () => { 
         startTurn.turnOver = true;
-        console.log(startTurn.turnOver) 
     }
 
     return { startTurn, endTurn }
 }
 
-// document.querySelectorAll('.space').forEach(space => {
-//     space.addEventListener('click', event => {
-//         player.markSpace(event);
-//         turnOver = true;  
-//     })
-// });
+
 
 
 function setPlayer(num) {
@@ -66,22 +56,38 @@ function setPlayer(num) {
 
 }
 
+function switchTurns(player, opp) {
+    var temp = player;
+    player = opp;
+    opp = temp;
+    return { player, opp } 
+}
+
 function gameLoop() {
     var gameOver = false;
-    const p1 = setPlayer(1);
-    const p2 = setPlayer(2);
-    currentPlayer = p1;
-
+    var player = setPlayer(1);
+    var opp = setPlayer(2);
+    
+    playerTurn(player.num).startTurn();
     document.querySelectorAll('.space').forEach(space => {
         space.addEventListener('click', event => {
-            currentPlayer.markSpace(event);
-            playerTurn(currentPlayer.num).endTurn();
+            player.markSpace(event);
+            playerTurn(player.num).endTurn;
+            //switch turns
+            var temp = player;
+            player = opp;
+            opp = temp;
+            //check for game over
+            if (gameOver === true) {
+                console.log('gameover');
+                return;
+            }
+            playerTurn(player.num).startTurn();
+            gameOver = true;
+            
         })
     });
-    playerTurn(1).startTurn()
 
-    // do {
-        
 
-    // } while (gameOver === false);
+
 }
