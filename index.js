@@ -30,9 +30,8 @@ const Gameboard = (() => {
         });
     }
 
-    const updateGameboard = () => {
-        console.log(spaces);
-
+    const updateGameboard = (marker, id) => {
+        spaces[id - 1] = marker;
     }
 
     return {newGame, updateGameboard, spaces}
@@ -120,6 +119,7 @@ function gameLoop() {
             if (validateTurn(event, player) === false) {
                 return
             }
+            Gameboard.updateGameboard(player.marker, event.target.id)
             playerTurn(player.num).endTurn;
             console.log(Gameboard.spaces)
             //switch turns
