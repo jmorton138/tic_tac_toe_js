@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const Gameboard = (() => {
     var spaces = []
     for(let i = 1; i < 10; i++) {
-        spaces.push('  ');
+        spaces.push('');
     }
     return { spaces }
 })();
@@ -57,7 +57,7 @@ function switchTurns(player, opp) {
 }
 
 function validateTurn(event, player) {
-    if (event.target.innerHTML === '  ') {
+    if (event.target.innerHTML === '') {
         player.markSpace(event);
     } else {
         return false
@@ -72,10 +72,15 @@ function newGame() {
         var element = document.createElement("DIV");
         element.innerHTML = space;
         element.className ="space";
+        element.id = i;
         displayBoard.appendChild(element);
 
         i++;
     });
+}
+
+function gameOverCheck() {
+    return
 }
 
 function gameLoop() {
