@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const Gameboard = (() => {
     var spaces = []
     for(let i = 1; i < 10; i++) {
-        spaces.push('__');
+        spaces.push('  ');
     }
     return { spaces }
 })();
@@ -57,7 +57,7 @@ function switchTurns(player, opp) {
 }
 
 function validateTurn(event, player) {
-    if (event.target.innerHTML === '__') {
+    if (event.target.innerHTML === '  ') {
         player.markSpace(event);
     } else {
         return false
@@ -65,14 +65,16 @@ function validateTurn(event, player) {
 }
 
 function newGame() {
+    let i = 1;
     const displayBoard = document.querySelector('.gameboard');
     displayBoard.innerHTML = '';
     Gameboard.spaces.forEach(space => {
         var element = document.createElement("DIV");
         element.innerHTML = space;
         element.className ="space";
-        element.onclick = 
         displayBoard.appendChild(element);
+
+        i++;
     });
 }
 
