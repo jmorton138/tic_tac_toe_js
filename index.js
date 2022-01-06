@@ -100,13 +100,18 @@ function validateTurn(event, player) {
 //     return false
 // }
 
-// function catsGameCheck() {
-//     //if no spaces are ''
-//     board = document.querySelector('.gameboard')
-//     board.forEach(space => {
-//         console.log(space.id)
-//     })
-// }
+function catsGameCheck() {
+    //if no spaces are '' it's a cat's game
+    let i = 0;
+    Gameboard.spaces.forEach(space => {
+        if (space === '') {
+            i++;
+        }
+    });
+    if (i === 0) {
+        console.log('catsgame');
+    }
+}
 
 function gameLoop() {
     var gameOver = false;
@@ -121,7 +126,7 @@ function gameLoop() {
             }
             Gameboard.updateGameboard(player.marker, event.target.id)
             playerTurn(player.num).endTurn;
-            console.log(Gameboard.spaces)
+            catsGameCheck();
             //switch turns
             var temp = player;
             player = opp;
