@@ -118,7 +118,6 @@ const gameOver = (() => {
 
                 if (array[j] === marker && array[j+1] === marker) {
                     counter ++;
-                    console.log(`j ${j}`)
 
                     if (counter === 2 && ((j+2)%3) === 0) {
                         console.log('horiz')
@@ -140,8 +139,7 @@ const gameOver = (() => {
 
                 if (array[j] === marker && array[j+3] === marker) {
                     counter ++;
-                    // console.log(`counter ${counter}`)
-                    console.log(`j ${j}`)
+     
 
                     if (counter === 2) {
                         console.log('vert')
@@ -159,11 +157,12 @@ const gameOver = (() => {
     const diagonalDownGameOver = marker => {
         let counter = 0
         const array = Gameboard.spaces
-        for (let i = 0; i < array.length - 1; i++) {
-            for (let j = i; j < array.length - 1; j += 4) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = i; j < array.length; j += 4) {
                 if (array[j] == marker && array[j+4] == marker) {
                     counter ++;
-                    
+                    // console.log(`counter ${counter}`)
+                    // console.log(`j ${j}`)
                     if (counter === 2) {
                         console.log('diag down')
                         return true;
@@ -180,12 +179,11 @@ const gameOver = (() => {
     const diagonalUpGameOver = marker => {
         let counter = 0
         const array = Gameboard.spaces
-        for (let i = 0; i < array.length - 1; i++) {
-            for (let j = i; j < array.length - 1; j += 2) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = i; j < array.length; j += 2) {
                 if (array[j] == marker && array[j+2] == marker) {
                     counter ++;
-                    
-                    if (counter === 2) {
+                    if (counter === 2 && (j+2) === 6) {
                         console.log('diag up')
                         return true;
                     }
