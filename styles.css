@@ -9,3 +9,7 @@
     /* text-align: center; */
 
 }
+
+.new-game-btn {
+    display: none;
+}

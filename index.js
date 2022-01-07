@@ -90,6 +90,14 @@ function validateTurn(event, player) {
     }
 }
 
+function gameOverDisplay(num) {
+    document.querySelector('.player-turn').innerHTML = `Player ${num} wins`;
+    document.querySelector('.new-game-btn').style = "display: block;"
+}
+
+function loadNewGame() {
+    location.reload();
+}
 
 const gameOver = (() => {
 
@@ -161,15 +169,12 @@ const gameOver = (() => {
             for (let j = i; j < array.length; j += 4) {
                 if (array[j] == marker && array[j+4] == marker) {
                     counter ++;
-                    // console.log(`counter ${counter}`)
-                    // console.log(`j ${j}`)
-                    if (counter === 2) {
+                    if (counter === 2 && (j+4) === 8) {
                         console.log('diag down')
                         return true;
                     }
                 } else {
                     counter = 0;
-                    break
                 }
             }
         }    
@@ -217,7 +222,6 @@ const gameOver = (() => {
 
 
 
-
 function gameLoop() {
     Gameboard.newGame();
     Gameboard.updateGameboard();
@@ -233,10 +237,8 @@ function gameLoop() {
             Gameboard.updateGameboard(player.marker, event.target.id)
             playerTurn(player.num).endTurn;
             if (gameOver.check(player.marker) === true) {
-                console.log('game over');
-                return
-                // location.reload();
-                
+                gameOverDisplay(player.num);
+                return                
             }
             //switch turns
             var temp = player;
@@ -246,7 +248,5 @@ function gameLoop() {
             
         })
     });
-
-
 
 }
