@@ -1,19 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    Gameboard.newGame();
-    Gameboard.updateGameboard();
+
     gameLoop();
 
 
 })
 
 const Gameboard = (() => {
-
+    
     var spaces = []
 
     const newGame = () => {
         const displayBoard = document.querySelector('.gameboard');
         displayBoard.innerHTML = '';
-
+        if (spaces.length > 0) {
+            spaces = []
+        }
         for(let i = 1; i < 10; i++) {
             spaces.push('');
         }
@@ -95,14 +96,14 @@ const gameOver = (() => {
     function check(marker) {
         if (horizontalGameOver(marker) === true) {
             return true;
-        } else if (verticalGameOver(marker) == true) {
+        } else if (verticalGameOver(marker) === true) {
             return true;
-        } else if (diagonalDownGameOver(marker) == true) {
+        } else if (diagonalDownGameOver(marker) === true) {
             return true;
-
-        } else if (diagonalUpGameOver(marker) == true) {
+        } else if (diagonalUpGameOver(marker) === true) {
             return true;
-
+        } else if (catsGameCheck() === true) {
+            return true;
         } else {
             return false
 
@@ -110,21 +111,23 @@ const gameOver = (() => {
     }
 
     const horizontalGameOver = marker => {
-        let i = 0;
-        let j = 1;
-        Gameboard.spaces.forEach(space => {
-            if (space === marker) {
-                i++;
-                if (i === 3 && j % 3 === 0) {
-                    console.log('horiz win')
-                    return true;
-                }
-            } else {
-                i = 0;
-            }
-            j++;
-        });
+        let counter = 0;
+        const array = Gameboard.spaces
+        for (let i = 0; i < array.length; i++) {
+            for (let j = i; j < array.length; j += 1) {
 
+                if (array[j] === marker) {
+                    counter ++;
+                    if (counter === 3 && ((j+1)%3) === 0) {
+                        console.log('horiz')
+                        return true;
+                    }
+                } else {
+                    counter = 0;
+                }
+            }
+        
+        }
     }
 
     const verticalGameOver = marker => {
@@ -191,7 +194,7 @@ const gameOver = (() => {
 
     }
 
-    function catsGameCheck() {
+    const catsGameCheck = () => {
         //if no spaces are '' it's a cat's game
         let i = 0;
         Gameboard.spaces.forEach(space => {
@@ -214,6 +217,8 @@ const gameOver = (() => {
 
 
 function gameLoop() {
+    Gameboard.newGame();
+    Gameboard.updateGameboard();
     var player = setPlayer(1);
     var opp = setPlayer(2);
 
@@ -225,16 +230,16 @@ function gameLoop() {
             }
             Gameboard.updateGameboard(player.marker, event.target.id)
             playerTurn(player.num).endTurn;
-            gameOver.check(player.marker)
+            if (gameOver.check(player.marker) === true) {
+                console.log('game over');
+                return
+                // location.reload();
+                
+            }
             //switch turns
             var temp = player;
             player = opp;
             opp = temp;
-            //check for game over
-            if (gameOver === true) {
-                console.log('gameover');
-                return;
-            }
             playerTurn(player.num).startTurn();
             
         })
