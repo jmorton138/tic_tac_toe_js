@@ -92,7 +92,7 @@ function validateTurn(event, player) {
 
 function gameOverDisplay(num) {
     if (gameOver.catsGameCheck() === true) {
-        document.querySelector('.player-turn').innerHTML = `Cat's game. Everybody and nobody wins.`;
+        document.querySelector('.player-turn').innerHTML = `Cat's game. Everybody/nobody wins.`;
     } else {
         document.querySelector('.player-turn').innerHTML = `Player ${num} wins`;
     }

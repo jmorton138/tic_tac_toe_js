@@ -1,15 +1,50 @@
+body {
+    background: linear-gradient(plum, slateblue) bottom fixed;
+    /* background-size: cover;
+    overflow: auto;
+    height: 100%;
+    margin: 0; */
+}
 .gameboard {
     display: grid;
-    grid-template-columns: repeat(3, 50px);
-    grid-template-rows: repeat(3, 50px);
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    grid-gap: 5px;
+    justify-content: center;
+    
+    margin-top: 50px;
 }
 
 .space {
-    border: 1px solid red;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 100px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(216, 49, 105);
+    color: navajowhite;
     /* text-align: center; */
+}
 
+.space:hover {
+    background-color: blueviolet;
+}
+
+.player-turn {
+    font-size: 80px;
+    font-family: 'Courier New', Courier, monospace;
+    color: navy;
+    text-align: center;
 }
 
 .new-game-btn {
+    margin: auto;
+    margin-top: 20px;
     display: none;
+    padding: 30px;
+    font-size: 30px;
+    border-radius: 5px;
+    background-color: navy;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
 }
