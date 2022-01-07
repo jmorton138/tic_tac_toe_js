@@ -91,7 +91,11 @@ function validateTurn(event, player) {
 }
 
 function gameOverDisplay(num) {
-    document.querySelector('.player-turn').innerHTML = `Player ${num} wins`;
+    if (gameOver.catsGameCheck() === true) {
+        document.querySelector('.player-turn').innerHTML = `Cat's game. Everybody and nobody wins.`;
+    } else {
+        document.querySelector('.player-turn').innerHTML = `Player ${num} wins`;
+    }
     document.querySelector('.new-game-btn').style = "display: block;"
 }
 
@@ -210,10 +214,11 @@ const gameOver = (() => {
             }
         });
         if (i === 0) {
-            console.log('catsgame');
+            return true;
         }
     }
-    return {check}
+
+    return {check, catsGameCheck}
 })();
 
 
