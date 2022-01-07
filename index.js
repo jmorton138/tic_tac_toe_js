@@ -1,14 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     gameLoop();
-
-
 })
 
 const Gameboard = (() => {
-    
     var spaces = []
-
     const newGame = () => {
         const displayBoard = document.querySelector('.gameboard');
         displayBoard.innerHTML = '';
@@ -19,14 +14,12 @@ const Gameboard = (() => {
             spaces.push('');
         }
         let j = 1;
-
         spaces.forEach(space => {
             var element = document.createElement("DIV");
             element.innerHTML = space;
             element.className ="space";
             element.id = j;
             displayBoard.appendChild(element);
-    
             j++;
         });
     }
@@ -75,13 +68,6 @@ function setPlayer(num) {
 
 }
 
-function switchTurns(player, opp) {
-    var temp = player;
-    player = opp;
-    opp = temp;
-    return { player, opp } 
-}
-
 function validateTurn(event, player) {
     if (event.target.innerHTML === '') {
         player.markSpace(event);
@@ -90,12 +76,13 @@ function validateTurn(event, player) {
     }
 }
 
-function gameOverDisplay(num) {
-    if (gameOver.catsGameCheck() === true) {
-        document.querySelector('.player-turn').innerHTML = `Cat's game. Everybody/nobody wins.`;
-    } else {
-        document.querySelector('.player-turn').innerHTML = `Player ${num} wins`;
-    }
+const gameWonDisplay = num => {
+    document.querySelector('.player-turn').innerHTML = `Player ${num} wins`;
+    document.querySelector('.new-game-btn').style = "display: block;"
+}
+
+const catsGameDisplay = () => {
+    document.querySelector('.player-turn').innerHTML = `Cat's game. Everybody/nobody wins.`;
     document.querySelector('.new-game-btn').style = "display: block;"
 }
 
@@ -113,8 +100,6 @@ const gameOver = (() => {
         } else if (diagonalDownGameOver(marker) === true) {
             return true;
         } else if (diagonalUpGameOver(marker) === true) {
-            return true;
-        } else if (catsGameCheck() === true) {
             return true;
         } else {
             return false
@@ -242,8 +227,11 @@ function gameLoop() {
             Gameboard.updateGameboard(player.marker, event.target.id)
             playerTurn(player.num).endTurn;
             if (gameOver.check(player.marker) === true) {
-                gameOverDisplay(player.num);
+                gameWonDisplay(player.num);
                 return                
+            } else if (gameOver.catsGameCheck() === true) {
+                catsGameDisplay();
+                return
             }
             //switch turns
             var temp = player;
