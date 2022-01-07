@@ -116,9 +116,11 @@ const gameOver = (() => {
         for (let i = 0; i < array.length; i++) {
             for (let j = i; j < array.length; j += 1) {
 
-                if (array[j] === marker) {
+                if (array[j] === marker && array[j+1] === marker) {
                     counter ++;
-                    if (counter === 3 && ((j+1)%3) === 0) {
+                    console.log(`j ${j}`)
+
+                    if (counter === 2 && ((j+2)%3) === 0) {
                         console.log('horiz')
                         return true;
                     }
@@ -133,18 +135,20 @@ const gameOver = (() => {
     const verticalGameOver = marker => {
         let counter = 0
         const array = Gameboard.spaces
-        for (let i = 0; i < array.length - 1; i++) {
-            for (let j = i; j < array.length - 1; j += 3) {
-                if (array[j] == marker && array[j+3] == marker) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = i; j < array.length; j += 3) {
+
+                if (array[j] === marker && array[j+3] === marker) {
                     counter ++;
-                    
+                    // console.log(`counter ${counter}`)
+                    console.log(`j ${j}`)
+
                     if (counter === 2) {
                         console.log('vert')
                         return true;
                     }
                 } else {
                     counter = 0;
-                    break
                 }
             }
         }
