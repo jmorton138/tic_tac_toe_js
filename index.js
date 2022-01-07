@@ -43,6 +43,14 @@ const Player = (num) => {
     return { num, marker, markSpace }
 }
 
+
+
+const setPlayer = num => {
+    const player = Player(num)
+    return player;
+
+}
+
 const playerTurn = (number) => {
     const {num} = Player(number);
     const startTurn = () => {
@@ -51,24 +59,13 @@ const playerTurn = (number) => {
 
         return { turnOver }
     };
-
     const endTurn = () => { 
         startTurn.turnOver = true;
     }
-
     return { startTurn, endTurn }
 }
 
-
-
-
-function setPlayer(num) {
-    const player = Player(num)
-    return player;
-
-}
-
-function validateTurn(event, player) {
+const validateTurn = (event, player) => {
     if (event.target.innerHTML === '') {
         player.markSpace(event);
     } else {
